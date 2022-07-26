@@ -24,9 +24,9 @@ const User = db.define("user", {
 
 module.exports = User
 
-// User.beforeCreate(async (user) => {
-//   user.password = await bcrypt.hash(user.password, SALT_ROUNDS)
-// })
+User.beforeCreate(async (user) => {
+  user.password = await bcrypt.hash(user.password, SALT_ROUNDS)
+})
 
 User.prototype.correctPassword = function (candidatePassword) {
   return bcrypt.compare(candidatePassword, this.password);
